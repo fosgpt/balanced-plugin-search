@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Balanced Plugin Search</title>
+  <script>
+    window.__gcse = {
+      parsetags: 'explicit',
+      initializationCallback: function () {
+        const initializeSearch = function () {
+        google.search.cse.element.render({
+          div: 'searchbox', tag: 'searchbox-only', gname: 'main-search',
+          attributes: { enableHistory: true }
+        });
+
+        const sites = [
+          ['plugintorrent.com', 'plugintorrent.com'],
+          ['vsttorrentz.net', 'vsttorrentz.net'],
+          ['looptorrent.org', 'looptorrent.org'],
+          ['vstorrent.org', 'vstorrent.org'],
+          ['lugincrack.com', 'lugincrack.com'],
+          ['audiostorrent.com', 'audiostorrent.com'],
+          ['magesy.blog', 'magesy.blog'],
+          ['audiolove.me', 'audiolove.me'],
+          ['4downloads.net', '4downloads.net']
+        ];
+
+        for (const [id, domain] of sites) {
+          google.search.cse.element.render({
+            div: 'results-' + id,
+            tag: 'searchresults-only',
+            gname: 'results-' + id,
+            attributes: {
+              as_sitesearch: domain,
+              resultSetSize: 10,
+              enableHistory: false,
+              linkTarget: '_blank'
+            }
+          });
+        }
+
+        document.getElementById('loading').hidden = true;
+        document.getElementById('search-form').addEventListener('submit', function (event) {
+          event.preventDefault();
+          const query = document.getElementById('query').value.trim();
+          if (!query) return;
+          document.getElementById('empty-state').hidden = true;
+          document.getElementById('results-grid').hidden = false;
+          const elements = google.search.cse.element.getAllElements();
+          Object.keys(elements).forEach(function (key) {
+            if (key.indexOf('results-') === 0) elements[key].execute(query);
+          });
+        });
+        };
+
+        if (document.readyState === 'complete') {
+          initializeSearch();
+        } else {
+          google.setOnLoadCallback(initializeSearch, true);
+        }
+      }
+    };
+
+    window.setTimeout(function () {
+      const loading = document.getElementById('loading');
+      if (loading && !loading.hidden) {
+        loading.textContent = 'Google Search could not load. Check your internet connection, then reopen this page.';
+      }
+    }, 10000);
+  </script>
+  <script async src="https://cse.google.com/cse.js?cx=9460c78433f974e28"></script>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #080b10; color: #eef3fa; }
+    header { position: sticky; top: 0; z-index: 10; padding: 24px clamp(18px,4vw,56px); background: rgba(8,11,16,.92); border-bottom: 1px solid #202a37; backdrop-filter: blur(14px); }
+    .brand { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    h1 { margin: 0; font-size: clamp(24px,3vw,38px); letter-spacing: -.04em; }
+    .hint { margin: 0; color: #8fa0b5; font-size: 14px; }
+    form { display: grid; grid-template-columns: 1fr auto; gap: 10px; max-width: 980px; }
+    input { width: 100%; padding: 15px 17px; color: #fff; background: #111822; border: 1px solid #2c3949; border-radius: 12px; font: inherit; outline: none; }
+    input:focus { border-color: #55d6be; box-shadow: 0 0 0 3px rgba(85,214,190,.14); }
+    button { padding: 0 24px; border: 0; border-radius: 12px; background: #55d6be; color: #06100e; font: 700 15px inherit; cursor: pointer; }
+    main { padding: 28px clamp(18px,4vw,56px) 60px; }
+    #empty-state, #loading { max-width: 720px; margin: 16vh auto 0; text-align: center; color: #94a4b8; }
+    #results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px,100%), 1fr)); gap: 20px; align-items: start; }
+    section { overflow: hidden; min-height: 220px; padding: 18px; background: #0e141d; border: 1px solid #202b39; border-radius: 16px; }
+    h2 { margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid #253142; color: #7ce4d1; font-size: 17px; }
+    .gcse-native { display: none; }
+    .gsc-control-cse { padding: 0 !important; border: 0 !important; background: transparent !important; }
+    .gsc-webResult.gsc-result { border-color: #263343 !important; background: transparent !important; }
+    .gs-title, .gs-title * { color: #7fb8ff !important; }
+    .gs-snippet { color: #c4cfdd !important; }
+    .gsc-url-top, .gs-visibleUrl { color: #58d7b5 !important; }
+    .gsc-cursor-page { color: #9ac5ff !important; background: #172131 !important; }
+    @media (max-width: 640px) { .brand { display: block; } .hint { margin-top: 8px; } form { grid-template-columns: 1fr; } button { min-height: 48px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><h1>Balanced Plugin Search</h1><p class="hint">10 results from every site</p></div>
+    <form id="search-form" role="search">
+      <input id="query" type="search" autocomplete="off" placeholder="Search plugins, instruments, effects…" aria-label="Search query">
+      <button type="submit">Search all sites</button>
+    </form>
+    <div id="searchbox" class="gcse-native" aria-hidden="true"></div>
+  </header>
+  <main>
+    <p id="loading">Loading the search engine…</p>
+    <div id="empty-state"><h2>One search, equal space for every site.</h2><p>Enter a search above. Each panel has its own result pages, so no single domain can take over.</p></div>
+    <div id="results-grid" hidden>
+      <section><h2>plugintorrent.com</h2><div id="results-plugintorrent.com"></div></section>
+      <section><h2>vsttorrentz.net</h2><div id="results-vsttorrentz.net"></div></section>
+      <section><h2>looptorrent.org</h2><div id="results-looptorrent.org"></div></section>
+      <section><h2>vstorrent.org</h2><div id="results-vstorrent.org"></div></section>
+      <section><h2>lugincrack.com</h2><div id="results-lugincrack.com"></div></section>
+      <section><h2>audiostorrent.com</h2><div id="results-audiostorrent.com"></div></section>
+      <section><h2>magesy.blog</h2><div id="results-magesy.blog"></div></section>
+      <section><h2>audiolove.me</h2><div id="results-audiolove.me"></div></section>
+      <section><h2>4downloads.net</h2><div id="results-4downloads.net"></div></section>
+    </div>
+  </main>
+</body>
+</html>
